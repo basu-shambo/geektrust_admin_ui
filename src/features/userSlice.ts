@@ -8,15 +8,22 @@ export interface userInterface {
     role:string
 }
 
+export interface UserObject {
+    [key:string] : userInterface
+}
+
+
 interface UserStateInterface{
     loading:boolean,
-    users:userInterface[],
+    users:{
+        [key:string] : userInterface
+    },
     error:string
 }
 
 const initialState:UserStateInterface = {
     loading:false,
-    users:[],
+    users:{},
     error:""
 }
 
@@ -24,8 +31,7 @@ export const getUsers = createAsyncThunk(
     'user/fetchUser',
     async (thunkAPI)=>{
         const response = await axios.get("https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json");
-        // console.log(response)
-        return response.data
+        return response.data.reduce((obj:any,user:userInterface)=>Object.assign(obj,{[user.id]:user}),{})
     }
 )
 export const userSlice = createSlice({
@@ -45,7 +51,7 @@ export const userSlice = createSlice({
         })
         builder.addCase(getUsers.rejected,(state,action)=>{
             state.loading =false;
-            state.users = []
+            state.users = {}
             state.error = action.error.message?action.error.message:"";
         })
     }
