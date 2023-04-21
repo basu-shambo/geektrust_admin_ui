@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {RootState,AppDispatch} from "../../app/store";
 
@@ -7,20 +7,17 @@ import DataRow from '../DataRow';
 import {UserObject} from "../../features/userSlice"
 
 interface DataTableProps {
-    showUsers : UserObject
+    showUsers : UserObject,
+    setSelected:React.Dispatch<React.SetStateAction<UserObject>>
+    selected:UserObject
 }
-const DataTable = ({showUsers}:DataTableProps) =>{
-    //This state will hold all the users that have been selected
-    const [selected,setSelected] = useState<Set<string>>(new Set<string>)
+const DataTable = ({showUsers,setSelected,selected}:DataTableProps) =>{
 
-    useEffect(()=>{
-        console.log(selected)
-    },[selected])
     return (
         <div className="table min-w-max w-auto">
             {
                 Object.keys(showUsers).map((userId:string,index:number)=>{
-                    return <DataRow key={index} user={showUsers[userId]} setSelected={setSelected}/>
+                    return <DataRow key={index} user={showUsers[userId]} setSelected={setSelected} selected={userId in selected?true:false}/>
                 })
             }
         </div>

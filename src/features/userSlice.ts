@@ -1,6 +1,7 @@
 import {createSlice,PayloadAction,createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios'
 
+//This is the interface that will store the user infromation
 export interface userInterface {
     id:string,
     name:string,
@@ -8,16 +9,15 @@ export interface userInterface {
     role:string
 }
 
+//This is the interface that will define the how all the users will be stored in a single variable
 export interface UserObject {
     [key:string] : userInterface
 }
 
-
+//This will represent the redux store state that will store the userInterface
 interface UserStateInterface{
     loading:boolean,
-    users:{
-        [key:string] : userInterface
-    },
+    users:UserObject,
     error:string
 }
 
@@ -38,7 +38,11 @@ export const userSlice = createSlice({
     name:'users',
     initialState,
     reducers:{
-
+        removeUser:(state,action:PayloadAction<string>)=>{
+            const userState = JSON.parse(JSON.stringify(state.users));
+            delete userState[action.payload]
+            state.users = userState;
+        }
     },
     extraReducers:(builder)=>{
         builder.addCase(getUsers.pending,(state)=>{
@@ -56,6 +60,8 @@ export const userSlice = createSlice({
         })
     }
 })
+
+export const {removeUser} = userSlice.actions;
 
 export default userSlice.reducer;
 

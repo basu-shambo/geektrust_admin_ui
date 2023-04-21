@@ -1,1 +1,2 @@
-export {default } from './AdminPage'
+// import { PageInformation } from "./AdminPage"
+export {default} from './AdminPage'
