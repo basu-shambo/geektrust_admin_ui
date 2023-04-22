@@ -28,7 +28,7 @@ const BottomBar = ({selected,setSelected,pageInfo,setPageInfo}:BottomBarProps) =
     const dispatch = useDispatch<AppDispatch>();
 
     const handleDeleteClick = (e:React.MouseEvent<HTMLButtonElement>) =>{
-        console.log("delete")
+        // console.log("delete")
         for( let id in selected ){
             dispatch(removeUser(id))
         }
@@ -47,6 +47,7 @@ const BottomBar = ({selected,setSelected,pageInfo,setPageInfo}:BottomBarProps) =
                     Delete Selected
             </button>
             <PageSelector {...{pageInfo,setPageInfo}}/>
+            <div>{pageInfo.currentPage} , {pageInfo.totalPages}</div>
             
         </div>
     )

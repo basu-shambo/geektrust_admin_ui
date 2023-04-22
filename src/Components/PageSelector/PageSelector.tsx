@@ -5,7 +5,7 @@ import { BiChevronLeft,BiChevronRight, BiChevronsLeft, BiChevronsRight } from "r
 
 import { PageInformation } from "../AdminPage/AdminPage"
 import PageChangeButton from "../PageChangeButton"
-
+import { IconType } from 'react-icons/lib';
 
 interface PageSelectorProps{
     pageInfo:PageInformation
@@ -33,13 +33,16 @@ const PageSelector = ({pageInfo,setPageInfo}:PageSelectorProps) =>{
                 break;
             default:
                 if(buttonClickedId.startsWith("number_button_")){
-                    const pageNumberClicked:number  = parseInt(buttonClickedId.charAt(buttonClickedId.length-1))
+                    const split_id = buttonClickedId.split('_')
+                    const pageNumberClicked:number  = parseInt(buttonClickedId[buttonClickedId.length-1])
+                    // console.log(pageNumberClicked)
                     currPage = pageNumberClicked
                 }
         }
-        console.log(currPage)
+        // console.log(currPage)
         setPageInfo({...pageInfo,currentPage:currPage})
     }
+    // const icon:IconType = React.createElement()
     const {currentPage,totalPages} = pageInfo;
 
     return(
