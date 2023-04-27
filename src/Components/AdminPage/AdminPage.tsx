@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 
-import { getUsers, userSlice } from '../../features/userSlice';
+import { getUsers } from '../../features/userSlice';
 
 
 //Components
@@ -14,7 +14,6 @@ import { useSelector,useDispatch} from 'react-redux';
 import {RootState,AppDispatch} from "../../app/store";
 
 import {filterUsers,pageUsers} from './filterUsers'
-import { showData } from '../SearchBar/showData';
 
 /**
  * Component for Search Bar
@@ -80,11 +79,16 @@ const AdminPage = () =>{
     //This use effect will change the usersToShow state based on the filtered state and the page no
     useEffect(()=>{
         const {currentPage} = pageInfo;
-        const pageShowUsers = pageUsers(filtered,currentPage,singlePageLength)
+        const pageShowUsers = pageUsers(filtered,currentPage,singlePageLength);
         // console.log(pageShowUsers)
-        setUsersToShow(pageShowUsers)
+        setUsersToShow(pageShowUsers);
+        setSelected({});
 
     },[filtered,pageInfo])   
+
+    const uncheck_selectAllCheckbox_onDeleteSelected=(uncheck_selectAllCheckbox:React.Dispatch<React.SetStateAction<boolean>>)=>{
+        uncheck_selectAllCheckbox(false);
+    }
 
     return(
         <div className="admin-page">

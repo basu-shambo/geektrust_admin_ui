@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {userInterface,UserObject} from '../../features/userSlice'
 
 import { removeUser } from '../../features/userSlice';
@@ -9,7 +9,6 @@ import { BiTrash,BiEditAlt } from "react-icons/bi";
 
 interface DataRowProps{
     user : userInterface 
-    header?:boolean
     setSelected:React.Dispatch<React.SetStateAction<UserObject>>
     selected:boolean
 
@@ -47,7 +46,7 @@ const DataRow = ({user,setSelected,selected}:DataRowProps) =>{
     }
     
     return (
-        <div className="table-row-group">
+        
             <div className='table-row'>
                 <div>{id}</div>
                 <div className="table-cell Selected"><input type="checkbox" checked={selected} onChange={handleCheckBoxChange}/></div>
@@ -57,7 +56,7 @@ const DataRow = ({user,setSelected,selected}:DataRowProps) =>{
                 <div className="table-cell edit-action"><BiEditAlt/></div>
                 <div className="table-cell delete-action" onClick={handleSingleDeleteClick}><BiTrash color="red"/></div>
             </div>
-        </div>
+        
     )
 }
 

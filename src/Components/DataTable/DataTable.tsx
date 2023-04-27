@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import {RootState,AppDispatch} from "../../app/store";
 
-import DataRow from '../DataRow';
+import DataRow,{DataHeaderRow} from '../DataRow';
 
 import {UserObject} from "../../features/userSlice"
 
@@ -15,6 +15,7 @@ const DataTable = ({showUsers,setSelected,selected}:DataTableProps) =>{
 
     return (
         <div className="table min-w-max w-auto">
+            <DataHeaderRow {...{showUsers,setSelected,selected}}/>
             {
                 Object.keys(showUsers).map((userId:string,index:number)=>{
                     return <DataRow key={index} user={showUsers[userId]} setSelected={setSelected} selected={userId in selected?true:false}/>
